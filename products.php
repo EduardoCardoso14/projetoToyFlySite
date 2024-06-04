@@ -355,5 +355,4 @@ while ($linha = $result->fetch_array()) {
     </html>
 <?php
 }
-echo "SAI DAQUI CACHORRO";
 ?>

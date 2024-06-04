@@ -16,14 +16,22 @@ if (isset($_POST['save'])) {
         'datas' => mysqli_real_escape_string($db->conn, $datas),
         'senha' => mysqli_real_escape_string($db->conn, $senha)
     ];
-    $cadastrar =  new usuario;
-    $resultado = $cadastrar->inserir($teste);
-    if ($resultado == 1) {
-        $_SESSION['message2'] = "Cadastrado com sucesso, " . $login;
-        header('location: users.php');
-    } else {
-        $_SESSION['message2'] = "Não deu certo.";
-        header('location: index.php');
+    $conferir = new usuario;
+    $vamove = $conferir -> conferir_cad($teste);
+    $linha = $vamove->fetch_array();
+    if ($linha > 1){
+        $_SESSION['message19'] = "Usuário já cadastrado!";
+        header('location: cad_user.php');
+    }else{
+        $cadastrar =  new usuario;
+        $resultado = $cadastrar->inserir($teste);
+        if ($resultado == 1) {
+            $_SESSION['message2'] = "Cadastrado com sucesso, " . $login;
+            header('location: users.php');
+        } else {
+            $_SESSION['message2'] = "Não deu certo.";
+            header('location: index.php');
+        }
     }
 } else {
     $_SESSION['message2'] = "deu errado";

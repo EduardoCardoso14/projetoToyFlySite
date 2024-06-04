@@ -223,6 +223,9 @@ while ($linha = $result->fetch_array()) {
                                                     <a href="./deletar_user.php?id=<?= $linha['id'] ?>">
                                                         <img src="https://cdn-icons-png.flaticon.com/512/5028/5028066.png" alt="User Image" style="width: 40px">
                                                     </a>
+                                                    <a href="./editar_qualquer_user.php?id=<?= $linha['id'] ?>">
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/5996/5996831.png" alt="User Image" style="width: 40px">
+                                                    </a>
                                                 </li>
                                             <?php
                                             }
@@ -349,5 +352,4 @@ while ($linha = $result->fetch_array()) {
     </html>
 <?php
 }
-echo "SAI DAQUI CACHORRO";
 ?>

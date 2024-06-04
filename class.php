@@ -68,6 +68,12 @@ class usuario
         $dados = $this->conn->query($xpto);
         return $dados;
     }
+    public function pegar_user2($id)
+    {
+        $xpto = "select * from usuario where id='" . $id . "' and apagado = 0";
+        $dados = $this->conn->query($xpto);
+        return $dados;
+    }
 
     public function buscar_um_usuario($search)
     {
@@ -76,6 +82,17 @@ class usuario
         return $dados;
     }
 
+    public function conferir_cad($teste)
+    {
+        $nome = $teste['nome'];
+        $login = $teste['login'];
+        $sql = "select * from usuario where nome='" . $nome . "' and apagado = 0
+                                            or email= '" . $nome . "' and apagado = 0
+                                            or nome='" . $login . "' and apagado = 0
+                                            or nome='" . $login . "' and apagado = 0";
+        $resultado = $this->conn->query($sql);
+        return $resultado;
+    }
     public function contar()
     {
         $sql = "select count(*) as contador from usuario where apagado = 0";
@@ -155,7 +172,7 @@ class produto
         }
     }
     public function atualizar_cad_produto($teste)
-    {   
+    {
         $id = $teste['id'];
         $nome = $teste['nome'];
         $descricao = $teste['descricao'];
@@ -197,7 +214,7 @@ class produto
 
     public function buscar_um_produto($search)
     {
-        $xpto = "select * from produtos where nome like '%" . $search . "%'";
+        $xpto = "select * from produtos where nome like '%" . $search . "%' and apagado = 0";
         $dados = $this->conn->query($xpto);
         return $dados;
     }

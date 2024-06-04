@@ -28,8 +28,7 @@ if (isset($_POST['save'])) {
     $resultado = $atualizar->atualizar_cad_produto($teste);
     if ($resultado == 1) {
         $_SESSION['message11'] = "Atualizado com sucesso, " . $nome;
-        $_SESSION['idp'] = $id;
-        header('location: product_edit.php');
+        header('location: product_edit.php?id='.$id);
     } else {
         $_SESSION['message10'] = "Não deu certo.";
         header('location: index.php');

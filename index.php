@@ -42,7 +42,7 @@ if (isset($_SESSION['message'])) {
 
                 <form action="autenticar.php" method="POST" enctype="multipart/form-data">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="nome" placeholder="Nome de usuário ou Email">
+                        <input type="text" class="form-control" name="nome" placeholder="Nome de usuário ou Email" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -50,7 +50,7 @@ if (isset($_SESSION['message'])) {
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" name="senha" placeholder="Senha">
+                        <input type="password" class="form-control" name="senha" placeholder="Senha" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>

@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
     $deletarss =  new produto;
     $resultado = $deletarss->deletar($teste);
     if ($resultado == 1) {
-        $_SESSION['message4'] = "Deletado produto, id = " . $id;
+        $_SESSION['message4'] = "Deletado produto";
         header('location: products.php');
     } else {
         $_SESSION['message4'] = "Não deu certo.";

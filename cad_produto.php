@@ -157,25 +157,25 @@ while ($linha = $result->fetch_array()) {
                                                 <div class="form-group row">
                                                     <label for="inputName" class="col-sm-2 col-form-label">Nome</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" name="nome" class="form-control" id="inputName" placeholder="Nome">
+                                                        <input type="text" name="nome" class="form-control" id="inputName" placeholder="Nome" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="inputEmail" class="col-sm-2 col-form-label">Descricao</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" name="descricao" class="form-control" id="inputEmail" placeholder="Descrição">
+                                                        <input type="text" name="descricao" class="form-control" id="inputEmail" placeholder="Descrição" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="inputEmail" class="col-sm-2 col-form-label">Imagem</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" name="imagem" class="form-control" id="inputEmail" placeholder="Imagem (LINK)">
+                                                        <input type="text" name="imagem" class="form-control" id="inputEmail" placeholder="Imagem (LINK)" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="inputName2" class="col-sm-2 col-form-label">Preço</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" name="preco" class="form-control" id="inputName2" placeholder="Preço">
+                                                        <input type="number" name="preco" class="form-control" id="inputName2" placeholder="Preço" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -256,5 +256,5 @@ while ($linha = $result->fetch_array()) {
     </html>
 <?php
 }
-echo "SAI DAQUI CACHORRO";
+header('location: index.php');
 ?>

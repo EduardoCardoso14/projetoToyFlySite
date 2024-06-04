@@ -4,14 +4,10 @@ require_once 'banco.php';
 require_once 'class.php';
 $db = new banco;
 if (isset($_GET['id'])) {
+    $login = $_SESSION['username'];
     $id = $_GET['id'];
-    $produtinho = new produto;
-    if (isset($id)) {
-        $result = $produtinho->pegar_produto($id);
-    } else {
-        echo "<hr>";
-        header('location: products.php');
-    }
+    $usuarinho = new usuario;
+    $result = $usuarinho->pegar_user2($id);
     while ($linha = $result->fetch_array()) {
         $teste = $linha['data_cad'];
         $data = strftime('%d/%m/%Y', strtotime($teste));
@@ -90,7 +86,7 @@ if (isset($_GET['id'])) {
                                 <img src="./copiahtml/dist/img/usericon.png"" class=" img-circle elevation-2" alt="User Image">
                             </div>
                             <div class="info">
-                                <a href="./profile.php" class="d-block"><?= $_SESSION['username'] ?></a>
+                                <a href="./profile.php" class="d-block"><?= $login ?></a>
                             </div>
                         </div>
 
@@ -138,11 +134,11 @@ if (isset($_GET['id'])) {
                         <div class="container-fluid">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0">Editar produto
+                                    <h1 class="m-0">Usuário
                                         <?php
-                                        if (isset($_SESSION['message11'])) {
-                                            echo " - " . $_SESSION['message11'];
-                                            unset($_SESSION['message11']);
+                                        if (isset($_SESSION['message10'])) {
+                                            echo " - " . $_SESSION['message10'];
+                                            unset($_SESSION['message10']);
                                         } else {
                                             echo '';
                                         }
@@ -169,16 +165,16 @@ if (isset($_GET['id'])) {
                                     <div class="card card-primary card-outline">
                                         <div class="card-body box-profile">
                                             <div class="text-center">
-                                                <img class="profile-user-img img-fluid img-circle" src="<?= $linha['imagem'] ?>" alt="User profile picture">
+                                                <img class="profile-user-img img-fluid img-circle" src="./copiahtml/dist/img/usericon.png" alt="User profile picture">
                                             </div>
 
-                                            <h3 class="profile-username text-center"><?= $linha['nome'] ?></h3>
+                                            <h3 class="profile-username text-center"><?= $login ?></h3>
 
-                                            <p class="text-muted text-center">Produto</p>
+                                            <p class="text-muted text-center">Administrador ToyFly</p>
 
                                             <ul class="list-group list-group-unbordered mb-3">
                                                 <li class="list-group-item">
-                                                    <b>ID Produto</b> <a class="float-right"><?= $linha['id'] ?></a>
+                                                    <b>ID Usuário</b> <a class="float-right"><?= $linha['id'] ?></a>
                                                 </li>
                                                 <li class="list-group-item">
                                                     <b>Data do cadastro</b> <a class="float-right"><?= $data ?></a>
@@ -186,20 +182,19 @@ if (isset($_GET['id'])) {
                                                 <li class="list-group-item">
                                                     <b>Data da última atualização</b> <a class="float-right">
                                                         <?php
-                                                        if (isset($linha['dt_edicao'])) {
-                                                            $teste = $linha['dt_edicao'];
+                                                        if (isset($linha['data_edicao'])) {
+                                                            $teste = $linha['data_edicao'];
                                                             $data = strftime('%d/%m/%Y', strtotime($teste));
                                                             echo $data;
                                                         } else {
                                                             echo "Ainda não tem";
                                                         }
-
                                                         ?>
                                                     </a>
                                                 </li>
                                             </ul>
 
-                                            <a href="products.php" class="btn btn-primary btn-block"><b>Ver todos os produtos</b></a>
+                                            <a href="./users.php" class="btn btn-primary btn-block"><b>Ver todos os usuários</b></a>
                                         </div>
                                         <!-- /.card-body -->
                                     </div>
@@ -210,7 +205,7 @@ if (isset($_GET['id'])) {
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="tab-pane" id="settings">
-                                                <form class="form-horizontal" method="post" action="edit_cad_product.php">
+                                                <form class="form-horizontal" method="post" action="edit_cad_user.php">
                                                     <div class="form-group row">
                                                         <label for="inputName" class="col-sm-2 col-form-label">Nome</label>
                                                         <div class="col-sm-10">
@@ -218,34 +213,17 @@ if (isset($_GET['id'])) {
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="inputEmail" class="col-sm-2 col-form-label">Descricao</label>
+                                                        <label for="inputEmail" class="col-sm-2 col-form-label">Login</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" name="descricao" class="form-control" id="inputEmail" placeholder="Descrição" value="<?= $linha['descricao'] ?>" required>
+                                                            <input type="text" name="login" class="form-control" id="inputEmail" placeholder="Login" value="<?= $linha['email'] ?>" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="inputEmail" class="col-sm-2 col-form-label">Imagem</label>
+                                                        <label for="inputName2" class="col-sm-2 col-form-label">Senha</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" name="imagem" class="form-control" id="inputEmail" placeholder="Imagem (LINK)" value="<?= $linha['imagem'] ?>" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="inputName2" class="col-sm-2 col-form-label">Preço</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" name="preco" class="form-control" id="inputName2" placeholder="Preço" value="<?= $linha['preco'] ?>" required>
+                                                            <input type="text" name="senha" class="form-control" id="inputName2" placeholder="Senha" value="<?= $linha['senha'] ?>" required>
                                                         </div>
                                                         <input type="hidden" name="id" class="form-control" id="inputName" placeholder="id" value="<?= $linha['id'] ?>">
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="inputName2" class="col-sm-2 col-form-label">Idade</label>
-                                                        <div class="col-sm-10">
-                                                            <select class="custom-select rounded-0" id="inputName2" name="idade">
-                                                                <option value="1a3">1 a 3</option>
-                                                                <option value="3a5">3 a 5</option>
-                                                                <option value="5a8">5 a 8</option>
-                                                                <option value="8a12">8 a 12</option>
-                                                            </select>
-                                                        </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <div class="offset-sm-2 col-sm-10">
@@ -315,6 +293,7 @@ if (isset($_GET['id'])) {
 <?php
     }
 } else {
-    header('location: index.php');
+    //header('location: index.php');
+    echo "bomdia";
 }
 ?>
